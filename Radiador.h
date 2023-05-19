@@ -4,6 +4,8 @@ class Radiador
 private:
 	int caballosFuerza;
 public:
+	Radiador(int);
+	~Radiador();
 	int getCaballosFuerza();
 	void setCaballosFuerza(int);
 };

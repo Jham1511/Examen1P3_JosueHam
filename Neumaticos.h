@@ -4,7 +4,8 @@ class Neumaticos
 private:
 	float aceleracion;
 public:
+	Neumaticos(float);
+	~Neumaticos();
 	int getAceleracion();
-	void setAceleracion(float);
 };
 

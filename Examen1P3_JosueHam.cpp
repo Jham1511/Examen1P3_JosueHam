@@ -15,7 +15,22 @@ int menu() {
 	cin >> numero;
 	return numero;
 }
-
+void imprimirRadiador(vector<Radiador> radiadores) {
+	cout << "Radiadores disponibles" << endl;
+	for (int i = 0; i < radiadores.size(); i++)
+	{
+		cout << "Posicion: " << i << endl
+			<< "Caballos de Fuerza: " << radiadores[i].getCaballosFuerza() << endl;
+	}
+}
+void imprimirNeumaticos(vector<Neumaticos> llantas) {
+	cout << "Radiadores disponibles" << endl;
+	for (int i = 0; i < llantas.size(); i++)
+	{
+		cout << "Posicion: " << i << endl
+			<< "Aceleracion: " << llantas[i].getAceleracion() << endl;
+	}
+}
 void imprimirCiguenal(vector<Ciguenal> ciguenales) {
 	cout << "Ciguenales disponibles" << endl;
 	for (int i = 0; i < ciguenales.size(); i++)
@@ -24,6 +39,14 @@ void imprimirCiguenal(vector<Ciguenal> ciguenales) {
 			<<  "Caballos de Fuerza: " << ciguenales[i].getCaballosFuerza() << endl
 			<< "Velocidad Maxima: " << ciguenales[i].getVelMax() << endl;
 	}
+}
+void imprimirAutoModificado(vector<Auto> autosIngresados, int PosAutoSeleccionado) {
+	cout << "Resultados al modificar" << endl;
+	cout << "Marca: " << autosIngresados[PosAutoSeleccionado].getMarca() << endl
+		<< "Modelo: " << autosIngresados[PosAutoSeleccionado].getModelo() << endl
+		<< "Velocidad Maxima: " << autosIngresados[PosAutoSeleccionado].getVelMax() << endl
+		<< "Caballos de Fuerza: " << autosIngresados[PosAutoSeleccionado].getCaballosFuerza() << endl
+		<< "Aceleracion: " << autosIngresados[PosAutoSeleccionado].getAceleracion() << endl;
 }
 void imprimirAutos(vector<Auto> autos) {
 	cout << "Autos disponibles" << endl;
@@ -42,7 +65,7 @@ int main() {
 	vector <Auto> autosIngresados;
 	vector <Ciguenal> ciguenalIngresados;
 	vector <Neumaticos> neumaticosIngresados;
-	vector <Radiador> RadiadorlIngresados;
+	vector <Radiador> RadiadorIngresados;
 	vector <Diferencial> diferencialIngresados;
 	vector <CajaDeCambios> cajasIngresadas;
 	Ciguenal cigue1(50,25), cigue2(60,30), cigue3(70,35);
@@ -75,8 +98,8 @@ int main() {
 				cout << "Bienvenido a modificar autos" << endl;
 				imprimirAutos(autosIngresados);
 				cout << "Ingrese la posicion del auto que desea modificar: ";
-				int autoSeleccionado;
-				cin >> autoSeleccionado;
+				int PosAutoSeleccionado;
+				cin >> PosAutoSeleccionado;
 
 				cout << "Modificaciones disponibles" << endl;
 				cout << "1 -> Ciguenal" << endl
@@ -94,15 +117,47 @@ int main() {
 					int posicion;
 					cin >> posicion;
 
-					//autosIngresados[autoSeleccionado]
+					int caballosFuerzaCarro = autosIngresados[PosAutoSeleccionado].getCaballosFuerza();
+					autosIngresados[PosAutoSeleccionado].setCaballosFuerza(caballosFuerzaCarro + ciguenalIngresados[posicion].getCaballosFuerza());
+
+					int velMaxCarro = autosIngresados[PosAutoSeleccionado].getVelMax();
+					autosIngresados[PosAutoSeleccionado].setVelMax(velMaxCarro + ciguenalIngresados[posicion].getVelMax());
+					
+					imprimirAutoModificado(autosIngresados,PosAutoSeleccionado);
 					break;
 				}
 				case 2: {//Radiador
+					imprimirRadiador(RadiadorIngresados);
+					cout << "Ingrese la posicion del Radiador: ";
+					int posicion;
+					cin >> posicion;
+
+					int caballosFuerzaCarro = autosIngresados[PosAutoSeleccionado].getCaballosFuerza();
+					autosIngresados[PosAutoSeleccionado].setCaballosFuerza(caballosFuerzaCarro + RadiadorIngresados[posicion].getCaballosFuerza());
+
+					imprimirAutoModificado(autosIngresados, PosAutoSeleccionado);
 					break;
 				}
-				case 3: {
+				case 3: {//Neumaticos
+					imprimirNeumaticos(neumaticosIngresados);
+					cout << "Ingrese la posicion del Neumatico: ";
+					int posicion;
+					cin >> posicion;
+
+					int aceleracionCarro = autosIngresados[PosAutoSeleccionado].getAceleracion();
+					autosIngresados[PosAutoSeleccionado].setAceleracion(aceleracionCarro - neumaticosIngresados[posicion].getAceleracion());
+
+					imprimirAutoModificado(autosIngresados, PosAutoSeleccionado);
 					break;
 				}
+				case 4: {//Diferencial
+					break;
+				}
+				case 5: {//Caja de cambios
+					break;
+				}
+				default:
+					cout << "..." << endl;
 				}//Fin del switch para la modificacion de un aspecto
 			}
 			else {
