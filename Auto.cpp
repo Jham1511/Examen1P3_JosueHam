@@ -7,7 +7,7 @@ Auto::Auto(string marca, string modelo, int velMax, int CaballosFuerza, float ac
 	this->aceleracion = aceleracion;
 }
 Auto::~Auto() {
-	
+	delete[] diferen, cigue, rad, llantas,caja;
 }
 void Auto::setCaballosFuerza(int caballosDeFuerza) {
 	this->caballosFuerza = caballosDeFuerza;

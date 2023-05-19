@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include "Auto.h"
-#include <math.h>
 using namespace std;
 
 int menu() {
@@ -87,11 +86,11 @@ void Carrera(Auto carroUno, Auto carroDos, int distanciaCarrera) {
 	double acelaracionCarroUno = carroUno.getAceleracion();
 	double acelaracionCarroDos = carroDos.getAceleracion();
 
-	double exponenteCarroUno = pow(taCarroUno, 2);
+	double exponenteCarroUno = taCarroUno*taCarroUno;
 	double daCarroUno = acelaracionCarroUno * exponenteCarroUno/2;
 
-	double exponenteCarroDos = pow(taCarroDos, 2);
-	double daCarroDos = acelaracionCarroDos * exponenteCarroDos/ 2;
+	double exponenteCarroDos = taCarroDos*taCarroDos;
+	double daCarroDos = acelaracionCarroDos * exponenteCarroDos/2;
 
 	double tvmaxCarroUno = (daCarroUno - distanciaCarrera) / carroUno.getVelMax();
 	double tvmaxCarroDos = (daCarroDos - distanciaCarrera) / carroDos.getVelMax();
@@ -104,7 +103,9 @@ void Carrera(Auto carroUno, Auto carroDos, int distanciaCarrera) {
 
 	if (tempTotalCarroUno < tempTotalCarroDos) cout << "El auto 1 es el ganador!";
 	if (tempTotalCarroDos < tempTotalCarroUno) cout << "El auto 2 es el ganador!";
+	if (tempTotalCarroDos = tempTotalCarroUno) cout << "Hubo un empate";
 }
+
 int main() {
 	int opcionIngresada = menu();
 	vector <Auto> autosIngresados;
@@ -262,7 +263,72 @@ int main() {
 		case 3: {
 			if (autoCreado == true)
 			{
+				cout << "Ordenar autos" << endl;
+				imprimirAutos(autosIngresados);
 
+				cout << "Especificaciones de los autos" << endl
+					<< "1 -> Velocidad maxima" << endl
+					<< "2 -> Caballos de Fuerza" << endl
+					<< "3 -> Aceleracion" << endl
+					<< "Seleccione aspecto para ordenar" << endl;
+				int opcionOrdenar;
+				cin >> opcionOrdenar;
+				
+				switch (opcionOrdenar) {
+				case 1: {//Velocidad maxima
+					int aux = 0;
+					for (int i = 1; i < autosIngresados.size(); i++)
+					{
+						for (int j = 0; j < autosIngresados.size() - 2; j++)
+						{
+							if (autosIngresados[j].getVelMax() > autosIngresados[j + 1].getVelMax())
+							{
+								aux = autosIngresados[j].getVelMax();
+								autosIngresados[j].setVelMax(autosIngresados[j + 1].getVelMax());
+								autosIngresados[j + 1].setVelMax(aux);
+							}
+						}
+					}
+					imprimirAutos(autosIngresados);
+					break;
+				}
+				case 2: {//Caballos de Fuerza
+					int aux = 0;
+					for (int i = 1; i < autosIngresados.size(); i++)
+					{
+						for (int j = 0; j < autosIngresados.size() - 2; j++)
+						{
+							if (autosIngresados[j].getCaballosFuerza() > autosIngresados[j + 1].getCaballosFuerza())
+							{
+								aux = autosIngresados[j].getCaballosFuerza();
+								autosIngresados[j].setCaballosFuerza(autosIngresados[j + 1].getCaballosFuerza());
+								autosIngresados[j + 1].setCaballosFuerza(aux);
+							}
+						}
+					}
+					imprimirAutos(autosIngresados);
+					break;
+				}
+				case 3: {//Aceleracion
+					int aux = 0;
+					for (int i = 1; i < autosIngresados.size(); i++)
+					{
+						for (int j = 0; j < autosIngresados.size() - 2; j++)
+						{
+							if (autosIngresados[j].getAceleracion() > autosIngresados[j + 1].getAceleracion())
+							{
+								aux = autosIngresados[j].getAceleracion();
+								autosIngresados[j].setAceleracion(autosIngresados[j + 1].getAceleracion());
+								autosIngresados[j + 1].setAceleracion(aux);
+							}
+						}
+					}
+					imprimirAutos(autosIngresados);
+					break;
+				}
+				default: 
+					cout << "..." << endl;
+				}
 			}
 			else {
 				cout << "No se han detectados autos a ordenar en el sistema" << endl;
@@ -285,7 +351,7 @@ int main() {
 				int distanciaCarrera;
 				cin >> distanciaCarrera;
 
-
+				Carrera(autosIngresados[posicionPrimerAuto], autosIngresados[posicionSegundoAuto], distanciaCarrera);
 			}
 			else {
 				cout << "No hay suficientes autos en el sistema" << endl;
