@@ -15,6 +15,22 @@ int menu() {
 	cin >> numero;
 	return numero;
 }
+void imprimirCajadeCambios(vector<CajaDeCambios> cajas) {
+	cout << "Cajas de cambio disponibles" << endl;
+	for (int i = 0; i < cajas.size(); i++)
+	{
+		cout << "Posicion: " << i << endl
+			<< "Aceleracion: " << cajas[i].getAceleracion() << endl;
+	}
+}
+void imprimirDiferenciales(vector<Diferencial> diferenciales) {
+	cout << "Diferenciales disponibles" << endl;
+	for (int i = 0; i < diferenciales.size(); i++)
+	{
+		cout << "Posicion: " << i << endl
+			<< "Aceleracion: " << diferenciales[i].getAceleracion() << endl;
+	}
+}
 void imprimirRadiador(vector<Radiador> radiadores) {
 	cout << "Radiadores disponibles" << endl;
 	for (int i = 0; i < radiadores.size(); i++)
@@ -24,12 +40,15 @@ void imprimirRadiador(vector<Radiador> radiadores) {
 	}
 }
 void imprimirNeumaticos(vector<Neumaticos> llantas) {
-	cout << "Radiadores disponibles" << endl;
+	cout << "Neumaticos disponibles" << endl;
 	for (int i = 0; i < llantas.size(); i++)
 	{
 		cout << "Posicion: " << i << endl
 			<< "Aceleracion: " << llantas[i].getAceleracion() << endl;
 	}
+}
+void imprimirDiferenciales() {
+
 }
 void imprimirCiguenal(vector<Ciguenal> ciguenales) {
 	cout << "Ciguenales disponibles" << endl;
@@ -63,12 +82,19 @@ void imprimirAutos(vector<Auto> autos) {
 int main() {
 	int opcionIngresada = menu();
 	vector <Auto> autosIngresados;
+
 	vector <Ciguenal> ciguenalIngresados;
+	Ciguenal cigue1(50, 25), cigue2(60, 30), cigue3(70, 35);
+	ciguenalIngresados.push_back(cigue1);
+	ciguenalIngresados.push_back(cigue2);
+	ciguenalIngresados.push_back(cigue3);
+
 	vector <Neumaticos> neumaticosIngresados;
 	vector <Radiador> RadiadorIngresados;
 	vector <Diferencial> diferencialIngresados;
 	vector <CajaDeCambios> cajasIngresadas;
-	Ciguenal cigue1(50,25), cigue2(60,30), cigue3(70,35);
+	
+	
 
 	bool autoCreado = false;
 	while (opcionIngresada != 5) {
@@ -151,9 +177,30 @@ int main() {
 					break;
 				}
 				case 4: {//Diferencial
+					imprimirDiferenciales(diferencialIngresados);
+					cout << "Ingrese la posicion del Diferencial: ";
+					int posicion;
+					cin >> posicion;
+
+					int aceleracionCarro = autosIngresados[PosAutoSeleccionado].getAceleracion();
+					autosIngresados[PosAutoSeleccionado].setAceleracion(aceleracionCarro - diferencialIngresados[posicion].getAceleracion());
+
+					imprimirAutoModificado(autosIngresados, PosAutoSeleccionado);
 					break;
 				}
 				case 5: {//Caja de cambios
+					imprimirCajadeCambios(cajasIngresadas);
+					cout << "Ingrese la posicion de la Caja de Cambio: ";
+					int posicion;
+					cin >> posicion;
+
+					int aceleracionCarro = autosIngresados[PosAutoSeleccionado].getAceleracion();
+					autosIngresados[PosAutoSeleccionado].setAceleracion(aceleracionCarro - cajasIngresadas[posicion].getAceleracion());
+
+					int velMaxCarro = autosIngresados[PosAutoSeleccionado].getVelMax();
+					autosIngresados[PosAutoSeleccionado].setVelMax(velMaxCarro + cajasIngresadas[posicion].getVelMax());
+
+					imprimirAutoModificado(autosIngresados, PosAutoSeleccionado);
 					break;
 				}
 				default:

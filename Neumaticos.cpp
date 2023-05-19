@@ -5,3 +5,6 @@ Neumaticos::Neumaticos(float aceleracion) {
 int Neumaticos::getAceleracion() {
 	return aceleracion;
 }
+Neumaticos::~Neumaticos() {
+
+}

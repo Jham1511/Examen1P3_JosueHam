@@ -5,9 +5,9 @@ private:
 	float aceleracion;
 	int velMax;
 public:
+	CajaDeCambios(int,float);
+	~CajaDeCambios();
 	int getAceleracion();
-	void setAceleracion(float);
 	int getVelMax();
-	void setVelMax(int);
 };
 

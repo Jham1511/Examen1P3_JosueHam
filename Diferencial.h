@@ -4,7 +4,8 @@ class Diferencial
 private: 
 	float aceleracion;
 public:
+	Diferencial(float);
+	~Diferencial();
 	int getAceleracion();
-	void setAceleracion(float);
 };
 
