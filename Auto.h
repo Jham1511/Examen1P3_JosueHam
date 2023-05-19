@@ -22,5 +22,13 @@ public:
 	Auto(string,string,int,int,float);
 	Auto();
 	~Auto();
+	string getMarca();
+	string getModelo();
+	int getVelMax();
+	int getCaballosFuerza();
+	float getAceleracion();
+	void setVelMax(int);
+	void setCaballosFuerza(int);
+	void setAceleracion(float);
 };
 

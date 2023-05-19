@@ -7,9 +7,6 @@ public:
 	Ciguenal(int,int);
 	Ciguenal();
 	~Ciguenal();
-	void setCaballosFuerza(int);
-	void setVelMax(int);
 	int getCaballosFuerza();
 	int getVelMax();
 };
-

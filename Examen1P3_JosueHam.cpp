@@ -16,10 +16,38 @@ int menu() {
 	return numero;
 }
 
-
+void imprimirCiguenal(vector<Ciguenal> ciguenales) {
+	cout << "Ciguenales disponibles" << endl;
+	for (int i = 0; i < ciguenales.size(); i++)
+	{
+		cout << "Posicion: " << i << endl
+			<<  "Caballos de Fuerza: " << ciguenales[i].getCaballosFuerza() << endl
+			<< "Velocidad Maxima: " << ciguenales[i].getVelMax() << endl;
+	}
+}
+void imprimirAutos(vector<Auto> autos) {
+	cout << "Autos disponibles" << endl;
+	for (int i = 0; i < autos.size(); i++)
+	{
+		cout << "Posicion: " << i << endl
+			<< "Marca: " << autos[i].getMarca() << endl
+			<< "Modelo: " << autos[i].getModelo() << endl
+			<< "Velocidad Maxima: " << autos[i].getVelMax() << endl
+			<< "Caballos de Fuerza: " << autos[i].getCaballosFuerza() << endl
+			<< "Aceleracion: " << autos[i].getAceleracion();
+	}
+}
 int main() {
 	int opcionIngresada = menu();
 	vector <Auto> autosIngresados;
+	vector <Ciguenal> ciguenalIngresados;
+	vector <Neumaticos> neumaticosIngresados;
+	vector <Radiador> RadiadorlIngresados;
+	vector <Diferencial> diferencialIngresados;
+	vector <CajaDeCambios> cajasIngresadas;
+	Ciguenal cigue1(50,25), cigue2(60,30), cigue3(70,35);
+
+	bool autoCreado = false;
 	while (opcionIngresada != 5) {
 		switch (opcionIngresada) {
 		case 1: {
@@ -38,23 +66,74 @@ int main() {
 			Auto carro(marca,modelo,velMax,caballosFuerzaAuto,aceleracionAuto);
 			autosIngresados.push_back(carro);
 			cout << "Auto agregado correctamente";
+			autoCreado = true;
 			break;
-		}
+		}//Fin case 1
 		case 2: {
+			if (autoCreado == true)
+			{
+				cout << "Bienvenido a modificar autos" << endl;
+				imprimirAutos(autosIngresados);
+				cout << "Ingrese la posicion del auto que desea modificar: ";
+				int autoSeleccionado;
+				cin >> autoSeleccionado;
+
+				cout << "Modificaciones disponibles" << endl;
+				cout << "1 -> Ciguenal" << endl
+					 << "2 -> Radiador" << endl
+					 << "3 -> Neumaticos" << endl
+					 << "4 -> Diferencial" << endl
+					 << "5 -> Caja de Cambios" << endl
+					 << "Ingrese el aspecto a modificar: " << endl;
+				int aspectoSeleccionado;
+				cin >> aspectoSeleccionado;
+				switch (aspectoSeleccionado) {
+				case 1: { //Ciguenal
+					imprimirCiguenal(ciguenalIngresados);
+					cout << "Ingrese la posicion del ciguenal: ";
+					int posicion;
+					cin >> posicion;
+
+					//autosIngresados[autoSeleccionado]
+					break;
+				}
+				case 2: {//Radiador
+					break;
+				}
+				case 3: {
+					break;
+				}
+				}//Fin del switch para la modificacion de un aspecto
+			}
+			else {
+				cout << "No se han detectados autos a modificar en el sistema" << endl;
+			}
 
 			break;
-		}
+		}//Fin case 2
 		case 3: {
+			if (autoCreado == true)
+			{
 
+			}
+			else {
+				cout << "No se han detectados autos a ordenar en el sistema" << endl;
+			}
 			break;
-		}
+		}//Fin case 3
 		case 4: {
+			if (autosIngresados.size() > 2) //Validacion para saber si hay 2 autos o más en el sistema
+			{
 
+			}
+			else {
+				cout << "No hay suficientes autos en el sistema" << endl;
+			}
 			break;
-		}
-		  defaut:
+		}//Fin case 4
+		  default:
 			  cout << "..." << endl;
-		}
+		}//Fin del switch
 		opcionIngresada = menu();
 	}//Fin del while
-}
+}//Fin de la clase
