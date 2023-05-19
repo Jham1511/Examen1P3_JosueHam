@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Auto.h"
+#include <math.h>
 using namespace std;
 
 int menu() {
@@ -79,6 +80,31 @@ void imprimirAutos(vector<Auto> autos) {
 			<< "Aceleracion: " << autos[i].getAceleracion();
 	}
 }
+void Carrera(Auto carroUno, Auto carroDos, int distanciaCarrera) {
+	double taCarroUno = carroUno.getVelMax()/carroUno.getAceleracion();
+	double taCarroDos = carroDos.getVelMax()/carroDos.getAceleracion();
+
+	double acelaracionCarroUno = carroUno.getAceleracion();
+	double acelaracionCarroDos = carroDos.getAceleracion();
+
+	double exponenteCarroUno = pow(taCarroUno, 2);
+	double daCarroUno = acelaracionCarroUno * exponenteCarroUno/2;
+
+	double exponenteCarroDos = pow(taCarroDos, 2);
+	double daCarroDos = acelaracionCarroDos * exponenteCarroDos/ 2;
+
+	double tvmaxCarroUno = (daCarroUno - distanciaCarrera) / carroUno.getVelMax();
+	double tvmaxCarroDos = (daCarroDos - distanciaCarrera) / carroDos.getVelMax();
+
+	double tempTotalCarroUno = taCarroUno + tvmaxCarroUno;
+	double tempTotalCarroDos = taCarroDos + tvmaxCarroDos;
+
+	cout << "Tiempo total auto 1: " << tempTotalCarroUno << endl
+		<< "Tiempo total auto 2: " << tempTotalCarroDos << endl;
+
+	if (tempTotalCarroUno < tempTotalCarroDos) cout << "El auto 1 es el ganador!";
+	if (tempTotalCarroDos < tempTotalCarroUno) cout << "El auto 2 es el ganador!";
+}
 int main() {
 	int opcionIngresada = menu();
 	vector <Auto> autosIngresados;
@@ -90,10 +116,28 @@ int main() {
 	ciguenalIngresados.push_back(cigue3);
 
 	vector <Neumaticos> neumaticosIngresados;
+	Neumaticos llantas1(40), llantas2(55), llantas3(70);
+	neumaticosIngresados.push_back(llantas1);
+	neumaticosIngresados.push_back(llantas2);
+	neumaticosIngresados.push_back(llantas3);
+
 	vector <Radiador> RadiadorIngresados;
+	Radiador radiador1(35), radiador2(85), radiador3(65);
+	RadiadorIngresados.push_back(radiador1);
+	RadiadorIngresados.push_back(radiador2);
+	RadiadorIngresados.push_back(radiador3);
+
 	vector <Diferencial> diferencialIngresados;
+	Diferencial diferencial1(80), diferencial2(140), diferencial3(35);
+	diferencialIngresados.push_back(diferencial1);
+	diferencialIngresados.push_back(diferencial2);
+	diferencialIngresados.push_back(diferencial3);
+
 	vector <CajaDeCambios> cajasIngresadas;
-	
+	CajaDeCambios caja1(30,70), caja2(70,50), caja3(80,40);
+	cajasIngresadas.push_back(caja1);
+	cajasIngresadas.push_back(caja2);
+	cajasIngresadas.push_back(caja3);
 	
 
 	bool autoCreado = false;
@@ -134,8 +178,10 @@ int main() {
 					 << "4 -> Diferencial" << endl
 					 << "5 -> Caja de Cambios" << endl
 					 << "Ingrese el aspecto a modificar: " << endl;
+
 				int aspectoSeleccionado;
 				cin >> aspectoSeleccionado;
+
 				switch (aspectoSeleccionado) {
 				case 1: { //Ciguenal
 					imprimirCiguenal(ciguenalIngresados);
@@ -226,6 +272,19 @@ int main() {
 		case 4: {
 			if (autosIngresados.size() > 2) //Validacion para saber si hay 2 autos o más en el sistema
 			{
+				imprimirAutos(autosIngresados);
+				cout << "Ingrese la posicion del primero auto: ";
+				int posicionPrimerAuto;
+				cin >> posicionPrimerAuto;
+				
+				cout << "Ingrese la posicion del segundo auto: ";
+				int posicionSegundoAuto;
+				cin >> posicionSegundoAuto;
+
+				cout << "Ingrese la distancia de la carrera: ";
+				int distanciaCarrera;
+				cin >> distanciaCarrera;
+
 
 			}
 			else {

@@ -7,6 +7,5 @@ public:
 	Radiador(int);
 	~Radiador();
 	int getCaballosFuerza();
-	void setCaballosFuerza(int);
 };
 
