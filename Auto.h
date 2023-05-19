@@ -19,7 +19,7 @@ private:
 	Diferencial *diferen;
 	CajaDeCambios *caja;
 public:
-	Auto(string,string,int,int,float,Ciguenal,Radiador,Neumaticos,Diferencial,CajaDeCambios);
+	Auto(string,string,int,int,float);
 	Auto();
 	~Auto();
 };
